@@ -1,42 +1,32 @@
 package com.program.core;
 
-import org.lwjgl.glfw.GLFW;
-import org.lwjgl.opengl.GL11;
+import com.program.graphics.Renderer;
+import com.program.graphics.Texture;
 
 public class GameLoop {
+
     private Window window;
+    private Renderer renderer;
 
     public void start() {
-        window = new Window(800, 600, "Gamer Engine");
+        window = new Window(800, 600, "Minha Engine");
         window.create();
 
-        // Loop do jogo
+        // Carregar a textura (pode ser qualquer imagem sua)
+        Texture texture = new Texture("res/images/your_image.png");
+        renderer = new Renderer(texture);
+
+        // Loop principal do jogo
         while (!window.shouldClose()) {
             update();
-            render();
-            window.update();
+            renderer.render(); // Aqui chamamos o render do Renderer
+            window.update();   // Atualiza a janela
         }
 
-        // Finaliza a janela
-        window.destroy();
+        window.destroy(); // Destroi a janela ao sair do loop
     }
 
     private void update() {
-        // Atualizar lógica do jogo
-        if (GLFW.glfwGetKey(window.getWindow(), GLFW.GLFW_KEY_ESCAPE) == GLFW.GLFW_PRESS) {
-            GLFW.glfwSetWindowShouldClose(window.getWindow(), true);
-        }
-    }
-
-    private void render() {
-        // Limpa a tela com cor preta
-        GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
-
-        // Troca os buffers (double buffering)
-        GLFW.glfwSwapBuffers(window.getWindow());
-    }
-
-    public static void main(String[] args) {
-        new GameLoop().start();
+        // Aqui você pode colocar a lógica do jogo
     }
 }

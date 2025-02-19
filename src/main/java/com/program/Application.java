@@ -1,17 +1,11 @@
 package com.program;
 
-import com.program.core.Window;
+import com.program.core.GameLoop;
 
 public class Application {
     public static void main(String[] args) {
-        Window window = new Window(800, 600, "Minha Engine");
-
-        window.create(); // 🔥 ESSA LINHA É ESSENCIAL PARA CRIAR A JANELA
-
-        while (!window.shouldClose()) {
-            window.update();
-        }
-
-        window.destroy();
+        // Cria o GameLoop e inicia o jogo
+        GameLoop gameLoop = new GameLoop();
+        gameLoop.start();
     }
 }
