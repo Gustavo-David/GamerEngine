@@ -1,32 +1,33 @@
-src/
-└── main/
-    ├── java/
-    │   └── com/
-    │       └── gamerengine/
-    │           ├── core/        # Base da engine (loop do jogo, inicialização)
-    │           │   ├── Game.java
-    │           │   ├── GameLoop.java
-    │           │   ├── Window.java
-    │           │   └── Timer.java
-    │           ├── graphics/    # Renderização (OpenGL, shaders)
-    │           │   ├── Renderer.java
-    │           │   ├── Shader.java
-    │           │   ├── Texture.java
-    │           │   └── Camera.java
-    │           ├── input/       # Entrada (teclado, mouse, joystick)
-    │           │   ├── Keyboard.java
-    │           │   ├── Mouse.java
-    │           │   └── InputHandler.java
-    │           ├── physics/     # Física do jogo
-    │           │   ├── PhysicsEngine.java
-    │           │   ├── Collision.java
-    │           │   └── Rigidbody.java
-    │           ├── audio/       # Som e música
-    │           │   ├── AudioManager.java
-    │           │   ├── Sound.java
-    │           │   └── Music.java
-    │           ├── utils/       # Utilitários gerais (matemática, logging, etc.)
-    │           │   ├── MathUtils.java
-    │           │   ├── Logger.java
-    │           │   └── FileLoader.java
-    └── resources/   # Assets (shaders, texturas, sons)
+GamerRngine
+ |   src/
+ |    └── main/
+ |       ├── java/
+ |       │   └── com/
+ |       │       └── gamerengine/
+ |       │           ├── core/        # Base da engine (loop do jogo, inicialização)
+ |       │           │   ├── Game.java
+ |       │           │   ├── GameLoop.java
+ |       │           │   ├── Window.java
+ |       │           │   └── Timer.java
+ |       │           ├── graphics/    # Renderização (OpenGL, shaders)
+ |       │           │   ├── Renderer.java
+ |       │           │   ├── Shader.java
+ |       │           │   ├── Texture.java
+ |       │           │   └── Camera.java
+ |       │           ├── input/       # Entrada (teclado, mouse, joystick)
+ |       │           │   ├── Keyboard.java
+ |       │           │   ├── Mouse.java
+ |       │           │   └── InputHandler.java
+ |       │           ├── physics/     # Física do jogo
+ |       │           │   ├── PhysicsEngine.java
+ |       │           │   ├── Collision.java
+ |       │           │   └── Rigidbody.java
+ |       │           ├── audio/       # Som e música
+ |       │           │   ├── AudioManager.java
+ |       │           │   ├── Sound.java
+ |       │           │   └── Music.java
+ |       │           ├── utils/       # Utilitários gerais (matemática, logging, etc.)
+ |       │           │   ├── MathUtils.java
+ |       │           │   ├── Logger.java
+ |       │           │   └── FileLoader.java
+ |       └── resources/   # Assets (shaders, texturas, sons)
