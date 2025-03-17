@@ -1,7 +1,6 @@
 package com.program.core;
 
 import org.lwjgl.opengl.GL11;
-
 import com.program.graphics.Renderer;
 import com.program.input.KeyHandler;
 import com.program.physics.PhysicsEngine;
@@ -22,7 +21,7 @@ public class GameLoop {
     public void start() {
         window.create();
         keyHandler = new KeyHandler(window.getWindow());
-        physics = new PhysicsEngine(0, -0.9f);
+        physics = new PhysicsEngine(0, -0.8f); // Inicia o personagem no chão
         renderer = new Renderer();
         timer.init();
 
@@ -49,9 +48,11 @@ public class GameLoop {
     }
 
     private void update(float deltaTime) {
+        keyHandler.update(); // Atualiza os controles
         physics.update(keyHandler.isMovingLeft(), keyHandler.isMovingRight(), keyHandler.isJumping());
         renderer.update(physics.getPosX(), physics.getPosY());
     }
+    
 
     private void render() {
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);

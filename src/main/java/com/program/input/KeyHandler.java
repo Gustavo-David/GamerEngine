@@ -11,11 +11,13 @@ public class KeyHandler {
     }
 
     public void update() {
+        // Detecta se as teclas estão sendo pressionadas
         moveLeft = GLFW.glfwGetKey(window, GLFW.GLFW_KEY_A) == GLFW.GLFW_PRESS;
         moveRight = GLFW.glfwGetKey(window, GLFW.GLFW_KEY_D) == GLFW.GLFW_PRESS;
         jump = GLFW.glfwGetKey(window, GLFW.GLFW_KEY_SPACE) == GLFW.GLFW_PRESS;
     }
 
+    // Métodos para acessar o estado das teclas
     public boolean isMovingLeft() {
         return moveLeft;
     }

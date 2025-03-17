@@ -1,19 +1,15 @@
 package com.program.physics;
 
 public class PhysicsEngine {
-    private float posX, posY;
-    private float velocityX, velocityY;
-    private final float gravity = -0.001f;
-    private final float jumpStrength = -0.02f;
-    private final float moveSpeed = 0.001f;
-    private final float maxFallSpeed = 0.02f;
-    private boolean onGround = false;
-
-    // 🔥 Definição dos limites da área permitida
-    private final float minX = -0.8f;
-    private final float maxX = 0.8f;
-    private final float minY = -0.8f;
-    private final float maxY = 0.8f;
+    private float posX, posY; // Posição do personagem
+    private float velocityX = 0; // Velocidade horizontal
+    private float velocityY = 0; // Velocidade vertical (pulo)
+    
+    private final float acceleration = 0.02f; // Aceleração para movimentos suaves
+    private final float maxSpeed = 0.1f; // Velocidade máxima
+    private final float gravity = -0.005f; // Gravidade aplicada no pulo
+    private final float jumpForce = 0.15f; // Força do pulo
+    private boolean isGrounded = false; // Se o personagem está no chão
 
     public PhysicsEngine(float startX, float startY) {
         this.posX = startX;
@@ -21,40 +17,38 @@ public class PhysicsEngine {
     }
 
     public void update(boolean moveLeft, boolean moveRight, boolean jump) {
-        // Movimento lateral
+        // Movimentação Esquerda/Direita
         if (moveLeft) {
-            velocityX = -moveSpeed;
+            velocityX -= acceleration;
         } else if (moveRight) {
-            velocityX = moveSpeed;
+            velocityX += acceleration;
         } else {
-            velocityX *= 0.1f; // Suavização
+            velocityX *= 0.85f; // Faz o personagem desacelerar suavemente
         }
 
-        // Pulo
-        if (jump && onGround) {
-            velocityY = -jumpStrength;
-            onGround = false;
+        // Limita a velocidade máxima
+        if (velocityX > maxSpeed) velocityX = maxSpeed;
+        if (velocityX < -maxSpeed) velocityX = -maxSpeed;
+
+        // Pulo (apenas se estiver no chão)
+        if (jump && isGrounded) {
+            velocityY = jumpForce;
+            isGrounded = false;
         }
 
         // Aplicando gravidade
         velocityY += gravity;
-        if (velocityY > maxFallSpeed) {
-            velocityY = maxFallSpeed;
-        }
 
-        // Atualizar posição
+        // Atualiza posição
         posX += velocityX;
         posY += velocityY;
 
-        // 🔥 Garantindo que o quadrado não ultrapasse os limites
-        if (posX < minX) posX = minX;
-        if (posX > maxX) posX = maxX;
-        if (posY < minY) {
-            posY = minY;
+        // Colisão com o chão (para não cair infinitamente)
+        if (posY < -0.8f) {
+            posY = -0.8f;
             velocityY = 0;
-            onGround = true;
+            isGrounded = true;
         }
-        if (posY > maxY) posY = maxY;
     }
 
     public float getPosX() {
