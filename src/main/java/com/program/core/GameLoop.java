@@ -6,7 +6,7 @@ public class GameLoop {
     private Timer timer;
 
     public GameLoop() {
-        window = new Window(800, 600, "Minha Engine 2D");
+        window = new Window(1920, 1080, "Minha Engine 2D");
         timer = new Timer();
     }
 
