@@ -10,6 +10,8 @@ public class GameLoop {
     private Window window;
     private KeyHandler keyHandler;
     private Renderer renderer;
+    private Timer timer;
+
 
     public GameLoop() {
         window = new Window(1920, 1080, "Minha Engine 2D");
@@ -19,6 +21,7 @@ public class GameLoop {
         window.create();
         keyHandler = new KeyHandler(window.getWindow());
         renderer = new Renderer();
+        timer = new Timer();
 
         running = true;
         loop();
@@ -28,7 +31,9 @@ public class GameLoop {
 
     private void loop() {
         while (running) {
-            update();
+            float deltaTime = timer.getDeltaTime(); // Calcula o tempo entre frames
+
+            update(deltaTime);
             render();
 
             if (window.shouldClose()) {
@@ -39,17 +44,16 @@ public class GameLoop {
         }
     }
 
-    private void update() {
-        float dx = keyHandler.getMoveX();
-        float dy = keyHandler.getMoveY();
+    private void update(float deltaTime) {
+        float dx = keyHandler.getMoveX(deltaTime);
+        float dy = keyHandler.getMoveY(deltaTime);
         renderer.update(dx, dy);
     }
 
     private void render() {
-        // Limpa a tela
-        GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
+        GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
+        GL11.glLoadIdentity();
 
-        // Renderiza o objeto
         renderer.render();
     }
 }
