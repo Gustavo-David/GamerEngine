@@ -1,7 +1,9 @@
 package com.program.core;
 
 import org.lwjgl.glfw.GLFW;
+import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
+import org.lwjgl.opengl.GL11;
 
 public class Window {
 
@@ -25,10 +27,19 @@ public class Window {
             throw new IllegalStateException("Falha ao criar a janela GLFW");
         }
 
+        // Centraliza a janela na tela
+        GLFWVidMode vidMode = GLFW.glfwGetVideoMode(GLFW.glfwGetPrimaryMonitor());
+        GLFW.glfwSetWindowPos(window, (vidMode.width() - width) / 2, (vidMode.height() - height) / 2);
+
         GLFW.glfwMakeContextCurrent(window);
         GLFW.glfwShowWindow(window);
-
         GL.createCapabilities();
+
+        // 🔥 Corrige a visualização para 2D
+        GL11.glMatrixMode(GL11.GL_PROJECTION);
+        GL11.glLoadIdentity();
+        GL11.glOrtho(-1, 1, -1, 1, -1, 1); // Define uma área de visualização 2D
+        GL11.glMatrixMode(GL11.GL_MODELVIEW);
     }
 
     public boolean shouldClose() {
@@ -36,11 +47,16 @@ public class Window {
     }
 
     public void update() {
+        GLFW.glfwSwapBuffers(window);
         GLFW.glfwPollEvents();
     }
 
     public void destroy() {
         GLFW.glfwDestroyWindow(window);
         GLFW.glfwTerminate();
+    }
+
+    public long getWindow() {
+        return window;
     }
 }
